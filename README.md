@@ -182,3 +182,19 @@ $ curl --location 'http://localhost:8000/history' \
 ```
 1;AVITO_DISCOUNT;Add;2023-08-31 13:26:30.134443 +0300 MSK
 ```
+### 7. [POST] /segment
+
+**Запрос:**
+```
+$ curl --location 'http://localhost:8000/segment' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name":"AVITO_DISCOUNT",
+    "percentage":50
+}'
+```
+**Тело ответа:**
+```
+Success
+```
+
