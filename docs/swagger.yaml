@@ -1,0 +1,211 @@
+basePath: /
+definitions:
+  models.Segment:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      percentage:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/models.User'
+        type: array
+    type: object
+  models.User:
+    properties:
+      id:
+        type: integer
+      segments:
+        items:
+          $ref: '#/definitions/models.Segment'
+        type: array
+    type: object
+  services.historyStruct:
+    properties:
+      month:
+        type: integer
+      user_id:
+        type: string
+      year:
+        type: integer
+    type: object
+host: localhost:80
+info:
+  contact:
+    name: Slipneff
+    url: https://github.com/slipneff
+  description: This is the swagger document for the Avito task.
+  termsOfService: http://swagger.io/terms/
+  title: Avito Test Task
+  version: "1.0"
+paths:
+  /history:
+    post:
+      consumes:
+      - application/json
+      description: Generates a history of requests for a specified time
+      parameters:
+      - description: Generate history
+        in: body
+        name: segment
+        required: true
+        schema:
+          $ref: '#/definitions/services.historyStruct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Generate a history
+      tags:
+      - History
+  /segment:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a segment with the input payload
+      parameters:
+      - description: Delete segment
+        in: body
+        name: segment
+        required: true
+        schema:
+          $ref: '#/definitions/models.Segment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Segment'
+        "400":
+          description: Bad Request
+          schema: {}
+      summary: Delete a segment
+      tags:
+      - segments
+    post:
+      consumes:
+      - application/json
+      description: Create a new segment with the input payload
+      parameters:
+      - description: Create segment
+        in: body
+        name: segment
+        required: true
+        schema:
+          $ref: '#/definitions/models.Segment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Segment'
+        "400":
+          description: Bad Request
+          schema: {}
+      summary: Create a new segment
+      tags:
+      - segments
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the input payload
+      parameters:
+      - description: Create user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema: {}
+      summary: Create a new user
+      tags:
+      - users
+  /user/addSegment:
+    post:
+      consumes:
+      - application/json
+      description: Provides or deletes all user segments by ID and name of segments
+      parameters:
+      - description: Add or delete segments to user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+      summary: Adds segments to the user
+      tags:
+      - users
+  /user/all:
+    get:
+      description: Get all users without data payload
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "204":
+          description: No Content
+          schema: {}
+      summary: Get all users
+      tags:
+      - users
+  /user/segment:
+    post:
+      consumes:
+      - application/json
+      description: Provides all user segments by ID
+      parameters:
+      - description: Get user segments
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema: {}
+      summary: Provides all user segments
+      tags:
+      - users
+swagger: "2.0"
