@@ -36,11 +36,11 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Generate history",
-                        "name": "segment",
+                        "name": "History",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/services.historyStruct"
+                            "$ref": "#/definitions/services.HistoryStruct"
                         }
                     }
                 ],
@@ -68,13 +68,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "segments"
+                    "Segments"
                 ],
                 "summary": "Create a new segment",
                 "parameters": [
                     {
                         "description": "Create segment",
-                        "name": "segment",
+                        "name": "Segment",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -104,13 +104,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "segments"
+                    "Segments"
                 ],
                 "summary": "Delete a segment",
                 "parameters": [
                     {
                         "description": "Delete segment",
-                        "name": "segment",
+                        "name": "Segment",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -142,13 +142,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Create a new user",
                 "parameters": [
                     {
                         "description": "Create user",
-                        "name": "user",
+                        "name": "User",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -180,17 +180,17 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Adds segments to the user",
                 "parameters": [
                     {
                         "description": "Add or delete segments to user",
-                        "name": "user",
+                        "name": "AddSegmentsToUser",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/services.AddSegmentsToUserStruct"
                         }
                     }
                 ],
@@ -215,7 +215,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Get all users",
                 "responses": {
@@ -245,17 +245,17 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "users"
+                    "Users"
                 ],
                 "summary": "Provides all user segments",
                 "parameters": [
                     {
                         "description": "Get user segments",
-                        "name": "user",
+                        "name": "User",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/services.GetUser"
                         }
                     }
                 ],
@@ -309,7 +309,32 @@ const docTemplate = `{
                 }
             }
         },
-        "services.historyStruct": {
+        "services.AddSegmentsToUserStruct": {
+            "type": "object",
+            "properties": {
+                "add_name": {
+                    "type": "string"
+                },
+                "delete_name": {
+                    "type": "string"
+                },
+                "expires_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.GetUser": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.HistoryStruct": {
             "type": "object",
             "properties": {
                 "month": {

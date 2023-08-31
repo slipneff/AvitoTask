@@ -22,7 +22,23 @@ definitions:
           $ref: '#/definitions/models.Segment'
         type: array
     type: object
-  services.historyStruct:
+  services.AddSegmentsToUserStruct:
+    properties:
+      add_name:
+        type: string
+      delete_name:
+        type: string
+      expires_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  services.GetUser:
+    properties:
+      user_id:
+        type: string
+    type: object
+  services.HistoryStruct:
     properties:
       month:
         type: integer
@@ -49,10 +65,10 @@ paths:
       parameters:
       - description: Generate history
         in: body
-        name: segment
+        name: History
         required: true
         schema:
-          $ref: '#/definitions/services.historyStruct'
+          $ref: '#/definitions/services.HistoryStruct'
       produces:
       - application/json
       responses:
@@ -74,7 +90,7 @@ paths:
       parameters:
       - description: Delete segment
         in: body
-        name: segment
+        name: Segment
         required: true
         schema:
           $ref: '#/definitions/models.Segment'
@@ -90,7 +106,7 @@ paths:
           schema: {}
       summary: Delete a segment
       tags:
-      - segments
+      - Segments
     post:
       consumes:
       - application/json
@@ -98,7 +114,7 @@ paths:
       parameters:
       - description: Create segment
         in: body
-        name: segment
+        name: Segment
         required: true
         schema:
           $ref: '#/definitions/models.Segment'
@@ -114,7 +130,7 @@ paths:
           schema: {}
       summary: Create a new segment
       tags:
-      - segments
+      - Segments
   /user:
     post:
       consumes:
@@ -123,7 +139,7 @@ paths:
       parameters:
       - description: Create user
         in: body
-        name: user
+        name: User
         required: true
         schema:
           $ref: '#/definitions/models.User'
@@ -139,7 +155,7 @@ paths:
           schema: {}
       summary: Create a new user
       tags:
-      - users
+      - Users
   /user/addSegment:
     post:
       consumes:
@@ -148,10 +164,10 @@ paths:
       parameters:
       - description: Add or delete segments to user
         in: body
-        name: user
+        name: AddSegmentsToUser
         required: true
         schema:
-          $ref: '#/definitions/models.User'
+          $ref: '#/definitions/services.AddSegmentsToUserStruct'
       produces:
       - application/json
       responses:
@@ -164,7 +180,7 @@ paths:
           schema: {}
       summary: Adds segments to the user
       tags:
-      - users
+      - Users
   /user/all:
     get:
       description: Get all users without data payload
@@ -182,7 +198,7 @@ paths:
           schema: {}
       summary: Get all users
       tags:
-      - users
+      - Users
   /user/segment:
     post:
       consumes:
@@ -191,10 +207,10 @@ paths:
       parameters:
       - description: Get user segments
         in: body
-        name: user
+        name: User
         required: true
         schema:
-          $ref: '#/definitions/models.User'
+          $ref: '#/definitions/services.GetUser'
       produces:
       - application/json
       responses:
@@ -207,5 +223,5 @@ paths:
           schema: {}
       summary: Provides all user segments
       tags:
-      - users
+      - Users
 swagger: "2.0"

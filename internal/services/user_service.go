@@ -26,10 +26,10 @@ type AddSegmentsToUserStruct struct {
 // CreateUser godoc
 // @Summary Create a new user
 // @Description Create a new user with the input payload
-// @Tags users
+// @Tags Users
 // @Accept  json
 // @Produce  json
-// @Param user body models.User true "Create user"
+// @Param User body models.User true "Create user"
 // @Success 200 {object} models.User
 // @Failure 400 {object} error
 // @Router /user [post]
@@ -55,7 +55,7 @@ func CreateUser(w http.ResponseWriter, _ *http.Request) {
 // GetUsers godoc
 // @Summary Get all users
 // @Description Get all users without data payload
-// @Tags users
+// @Tags Users
 // @Produce  json
 // @Success 200 {object} []models.User
 // @Failure 204 {object} error
@@ -80,15 +80,15 @@ func GetUsers(w http.ResponseWriter, _ *http.Request) {
 // GetUserWithSegments godoc
 // @Summary Provides all user segments
 // @Description Provides all user segments by ID
-// @Tags users
+// @Tags Users
 // @Accept  json
 // @Produce  json
 // @Success 200 {object} string
 // @Failure 400 {object} error
-// @Param user body models.User true "Get user segments"
+// @Param User body GetUser true "Get user segments"
 // @Router /user/segment [post]
 func GetUserWithSegments(w http.ResponseWriter, r *http.Request) {
-	fmt.Printf("GET /user\n")
+	fmt.Printf("POST /user/segment\n")
 
 	var user GetUser
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -120,10 +120,10 @@ func GetUserWithSegments(w http.ResponseWriter, r *http.Request) {
 // AddSegmentsToUser godoc
 // @Summary Adds segments to the user
 // @Description Provides or deletes all user segments by ID and name of segments
-// @Tags users
+// @Tags Users
 // @Accept  json
 // @Produce  json
-// @Param user body models.User true "Add or delete segments to user"
+// @Param AddSegmentsToUser body AddSegmentsToUserStruct true "Add or delete segments to user"
 // @Success 200 {object} string
 // @Failure 400 {object} error
 // @Router /user/addSegment [post]
@@ -172,7 +172,7 @@ func AddSegmentsToUser(w http.ResponseWriter, r *http.Request) {
 			err = database.DeleteSegmentFromUser(tx, v, userID)
 			if err != nil {
 				tx.Rollback()
-				http.Error(w, "User doesn't have this segment", http.StatusBadRequest)
+				http.Error(w, error.Error(err), http.StatusBadRequest)
 				return
 			}
 		}

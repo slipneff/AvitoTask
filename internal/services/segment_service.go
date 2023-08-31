@@ -12,10 +12,10 @@ import (
 // CreateSegment godoc
 // @Summary Create a new segment
 // @Description Create a new segment with the input payload
-// @Tags segments
+// @Tags Segments
 // @Accept  json
 // @Produce  json
-// @Param segment body models.Segment true "Create segment"
+// @Param Segment body models.Segment true "Create segment"
 // @Success 200 {object} models.Segment
 // @Failure 400 {object} error
 // @Router /segment [post]
@@ -50,10 +50,10 @@ func CreateSegment(w http.ResponseWriter, r *http.Request) {
 // DeleteSegment godoc
 // @Summary Delete a segment
 // @Description Delete a segment with the input payload
-// @Tags segments
+// @Tags Segments
 // @Accept  json
 // @Produce  json
-// @Param segment body models.Segment true "Delete segment"
+// @Param Segment body models.Segment true "Delete segment"
 // @Success 200 {object} models.Segment
 // @Failure 400 {object} error
 // @Router /segment [delete]

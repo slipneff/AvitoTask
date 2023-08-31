@@ -51,6 +51,8 @@ func AddSegmentToUserWithExpiredTime(tx *gorm.DB, segmentName string, userId str
 	if err := tx.Where("Name = ?", segmentName).Find(&segment).Error; err != nil {
 		return err
 	}
+	fmt.Println(segment)
+	fmt.Println(segment.ID)
 	userSegmentAssociation := models.UserSegments{
 		UserID:    int(user.ID),
 		SegmentID: int(segment.ID),
@@ -60,10 +62,11 @@ func AddSegmentToUserWithExpiredTime(tx *gorm.DB, segmentName string, userId str
 		tx.Rollback()
 		return err
 	}
-	if err := tx.Model(&user).Association("Segments").Append(&segment); err != nil {
-		tx.Rollback()
-		return err
-	}
+	fmt.Println(userSegmentAssociation)
+	//if err := tx.Model(&user).Association("Segments").Append(&segment); err != nil {
+	//	tx.Rollback()
+	//	return err
+	//}
 	_ = AddSegmentHistory(userId, segmentName, tools.AddSegment)
 	return tx.Error
 }

@@ -21,7 +21,7 @@ type HistoryStruct struct {
 // @Tags History
 // @Accept  json
 // @Produce  json
-// @Param segment body historyStruct true "Generate history"
+// @Param History body HistoryStruct true "Generate history"
 // @Success 200 {object} string
 // @Failure 500 {object} error
 // @Router /history [post]
